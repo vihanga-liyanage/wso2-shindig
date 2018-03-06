@@ -61,9 +61,10 @@
   <!-- S C M                                                                  -->
   <!-- ====================================================================== -->
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/shindig/tags/shindig-project-2.5.2</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/shindig/tags/shindig-project-2.5.2</developerConnection>
-    <url>http://svn.apache.org/viewvc/shindig/tags/shindig-project-2.5.2</url>
+    <connection>scm:https://github.com/wso2/wso2-shindig.git</connection>
+    <developerConnection>scm:git:https://github.com/wso2/wso2-shindig.git</developerConnection>
+    <url>https://github.com/wso2/wso2-shindig.git</url>
+    <tag>HEAD</tag>
   </scm>
 
   <!-- ====================================================================== -->
