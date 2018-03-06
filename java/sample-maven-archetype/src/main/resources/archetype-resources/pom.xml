@@ -56,27 +56,27 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.shindig</groupId>
+      <groupId>org.wso2.org.apache.shindig</groupId>
       <artifactId>shindig-features</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.shindig</groupId>
+      <groupId>org.wso2.org.apache.shindig</groupId>
       <artifactId>shindig-common</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.shindig</groupId>
+      <groupId>org.wso2.org.apache.shindig</groupId>
       <artifactId>shindig-gadgets</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.shindig</groupId>
+      <groupId>org.wso2.org.apache.shindig</groupId>
       <artifactId>shindig-social-api</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.shindig</groupId>
+      <groupId>org.wso2.org.apache.shindig</groupId>
       <artifactId>shindig-extras</artifactId>
       <version>${project.version}</version>
     </dependency>

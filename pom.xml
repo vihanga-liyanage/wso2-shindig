@@ -21,12 +21,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache</groupId>
-    <artifactId>apache</artifactId>
-    <version>14</version>
+    <groupId>org.wso2</groupId>
+    <artifactId>wso2</artifactId>
+    <version>1</version>
   </parent>
 
-  <groupId>org.apache.shindig</groupId>
+  <groupId>org.wso2.org.apache.shindig</groupId>
   <artifactId>shindig-project</artifactId>
   <version>2.5.2-wso2v1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -1515,63 +1515,63 @@
     <dependencies>
       <!-- project dependencies -->
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-features</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-common</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-gadgets</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-sample-container</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-server-resources</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
         <type>war</type>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-server-dependencies</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-server</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
         <type>war</type>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-social-api</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-extras</artifactId>
         <version>${project.version}</version>
         <classifier>${shindig.jdk.classifier}</classifier>
       </dependency>
       <dependency>
-        <groupId>org.apache.shindig</groupId>
+        <groupId>org.wso2.org.apache.shindig</groupId>
         <artifactId>shindig-common</artifactId>
         <version>${project.version}</version>
         <type>test-jar</type>
