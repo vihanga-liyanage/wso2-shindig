@@ -50,6 +50,7 @@
     <shindig.jdk.version>1.6</shindig.jdk.version>
     <shindig.jdk.javadoc>1.6.0</shindig.jdk.javadoc>
     <shindig.jdk.classifier />
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <prerequisites>
