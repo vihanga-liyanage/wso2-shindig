@@ -84,17 +84,6 @@
   </ciManagement>
 
   <!-- ====================================================================== -->
-  <!-- D I S T R I B U T I O N  M A N A G E M E N T                           -->
-  <!-- ====================================================================== -->
-  <distributionManagement>
-    <!-- This is the technical website for Shindig 2.0.x -->
-    <site>
-      <id>apache.website</id>
-      <url>scp://people.apache.org/www/shindig.apache.org/shindig-3.0.x</url>
-    </site>
-  </distributionManagement>
-
-  <!-- ====================================================================== -->
   <!-- M A I L I N G   L I S T S                                              -->
   <!-- ====================================================================== -->
   <mailingLists>
@@ -611,13 +600,6 @@
                   <include>org/apache/shindig/**/*.class</include>
                 </includes>
               </instrumentation>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-site-plugin</artifactId>
-            <configuration>
-              <stagingSiteURL>scp://people.apache.org/www/shindig.apache.org/shindig-2.0.x/${project.version}</stagingSiteURL>
             </configuration>
           </plugin>
           <plugin>
