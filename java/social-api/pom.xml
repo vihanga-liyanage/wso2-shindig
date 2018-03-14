@@ -164,7 +164,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.tomcat</groupId>
-      <artifactId>el-api</artifactId>
+      <artifactId>tomcat-el-api</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
