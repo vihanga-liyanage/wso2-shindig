@@ -23,8 +23,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -69,8 +67,7 @@ public class URLFilter implements Filter {
 
         } else if (httpRequest.getMethod().equalsIgnoreCase("GET")) {
 
-            if (!isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(),
-                    StandardCharsets.UTF_8.name()))) {
+            if (!isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(), "UTF-8"))) {
                 chain.doFilter(httpRequest, response);
             } else {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
