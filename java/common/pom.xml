@@ -83,6 +83,20 @@
   <dependencies>
     <!-- external dependencies -->
     <dependency>
+      <groupId>org.wso2.carbon</groupId>
+      <artifactId>org.wso2.carbon.utils</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.eclipse.equinox</groupId>
+          <artifactId>javax.servlet</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>xerces.wso2</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>com.google.inject</groupId>
       <artifactId>guice</artifactId>
     </dependency>
@@ -149,5 +163,6 @@
       <artifactId>slf4j-jdk14</artifactId>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 </project>

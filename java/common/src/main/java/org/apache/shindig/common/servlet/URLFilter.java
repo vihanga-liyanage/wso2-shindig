@@ -18,6 +18,9 @@
 
 package org.apache.shindig.common.servlet;
 
+import org.wso2.carbon.base.ServerConfiguration;
+import org.wso2.carbon.utils.CarbonUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URI;
@@ -119,8 +122,26 @@ public class URLFilter implements Filter {
 
     public void init(FilterConfig filterConfig) {
 
-        String allowedHostNamesString = filterConfig.getInitParameter(ALLOWED_HOST_NAMES_PARAM);
-        allowedHostNamesString += ", " + System.getProperty(ALLOWED_HOST_NAMES_PARAM);
-        allowedHostNames = Arrays.asList(allowedHostNamesString.trim().split("\\s*,\\s*"));
+        ServerConfiguration serverConfig = CarbonUtils.getServerConfiguration();
+
+        StringBuffer allowedHostNamesBuffer = new StringBuffer();
+        // Reading hostname from carbon.xml file.
+        appendParam(allowedHostNamesBuffer, serverConfig.getFirstProperty("HostName"));
+        // Reading allowed host names passed as filter init params.
+        appendParam(allowedHostNamesBuffer, filterConfig.getInitParameter(ALLOWED_HOST_NAMES_PARAM));
+        // Reading allowed host names passed as JVM system properties.
+        appendParam(allowedHostNamesBuffer, System.getProperty(ALLOWED_HOST_NAMES_PARAM));
+
+        allowedHostNames = Arrays.asList(allowedHostNamesBuffer.toString().trim().split("\\s*,\\s*"));
+    }
+
+    private void appendParam(StringBuffer buffer, String param) {
+
+        if (param != null) {
+            if (buffer.length() > 0) {
+                buffer.append(", ");
+            }
+            buffer.append(param);
+        }
     }
 }
