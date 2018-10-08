@@ -47,35 +47,41 @@ public class URLFilter implements Filter {
 
     private static final String URL_REGEX = "https?://[-a-zA-Z0-9+&@#%?=~_|!:,.;]*";
     private static final String ALLOWED_HOST_NAMES_PARAM = "allowedHostNames";
+    private static final String ENABLE_FILTER_PARAM = "enable";
     private static Logger log = Logger.getLogger(URLFilter.class.getName());
 
     private List<String> allowedHostNames;
+    private boolean isEnabled;
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        if (isEnabled) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        if (httpRequest.getMethod().equalsIgnoreCase("POST")) {
+            if (httpRequest.getMethod().equalsIgnoreCase("POST")) {
 
-            // MultiReadHttpServletRequest is used to read request data more than once.
-            MultiReadHttpServletRequest multiReadRequest = new MultiReadHttpServletRequest(httpRequest);
+                // MultiReadHttpServletRequest is used to read request data more than once.
+                MultiReadHttpServletRequest multiReadRequest = new MultiReadHttpServletRequest(httpRequest);
 
-            if (handlePOSTRequest(multiReadRequest)) {
-                chain.doFilter(multiReadRequest, response);
-            } else {
-                HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized body parameter detected!");
+                if (handlePOSTRequest(multiReadRequest)) {
+                    chain.doFilter(multiReadRequest, response);
+                } else {
+                    HttpServletResponse httpResponse = (HttpServletResponse) response;
+                    httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized body parameter detected!");
+                }
+
+            } else if (httpRequest.getMethod().equalsIgnoreCase("GET")) {
+
+                if (!isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(), "UTF-8"))) {
+                    chain.doFilter(httpRequest, response);
+                } else {
+                    HttpServletResponse httpResponse = (HttpServletResponse) response;
+                    httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized query parameter detected!");
+                }
             }
-
-        } else if (httpRequest.getMethod().equalsIgnoreCase("GET")) {
-
-            if (!isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(), "UTF-8"))) {
-                chain.doFilter(httpRequest, response);
-            } else {
-                HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Unauthorized query parameter detected!");
-            }
+        } else {
+            chain.doFilter(request, response);
         }
     }
 
@@ -133,6 +139,8 @@ public class URLFilter implements Filter {
         appendParam(allowedHostNamesBuffer, System.getProperty(ALLOWED_HOST_NAMES_PARAM));
 
         allowedHostNames = Arrays.asList(allowedHostNamesBuffer.toString().trim().split("\\s*,\\s*"));
+
+        isEnabled = Boolean.parseBoolean(filterConfig.getInitParameter(ENABLE_FILTER_PARAM));
     }
 
     private void appendParam(StringBuffer buffer, String param) {
