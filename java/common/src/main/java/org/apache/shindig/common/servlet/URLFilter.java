@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class URLFilter implements Filter {
 
-    private static final String URL_REGEX = "https?://[-a-zA-Z0-9+&@#%?=~_|!:,.;]*";
+    private static final String URL_REGEX = "https?://[-a-zA-Z0-9+@#%?=~_|!:,.;]*";
     private static final String ALLOWED_HOST_NAMES_PARAM = "allowedHostNames";
     private static final String ENABLE_FILTER_PARAM = "enable";
     private static Logger log = Logger.getLogger(URLFilter.class.getName());
@@ -73,7 +73,7 @@ public class URLFilter implements Filter {
 
             } else if (httpRequest.getMethod().equalsIgnoreCase("GET")) {
 
-                if (!isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(), "UTF-8"))) {
+                if (httpRequest.getQueryString() != null && !isInvalidHostNamePresent(URLDecoder.decode(httpRequest.getQueryString(), "UTF-8"))) {
                     chain.doFilter(httpRequest, response);
                 } else {
                     HttpServletResponse httpResponse = (HttpServletResponse) response;
