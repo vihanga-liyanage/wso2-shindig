@@ -166,6 +166,10 @@
       <param-name>allowedHostNames</param-name>
       <param-value>localhost, 127.0.0.1</param-value>
     </init-param>
+    <init-param>
+      <param-name>enable</param-name>
+      <param-value>false</param-value>
+    </init-param>
   </filter>
   <filter-mapping>
     <filter-name>URLFilter</filter-name>
