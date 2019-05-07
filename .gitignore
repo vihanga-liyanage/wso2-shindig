@@ -222,6 +222,9 @@
 /java/samples/drop.sql
 /java/samples/derby.log
 
+java/sample-maven-archetype/*.iml
+java/sample-maven-archetype/target
+
 # /java/server/
 /java/server/target
 /java/server/work
