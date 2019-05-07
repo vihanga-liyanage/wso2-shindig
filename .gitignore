@@ -222,9 +222,6 @@
 /java/samples/drop.sql
 /java/samples/derby.log
 
-java/sample-maven-archetype/*.iml
-java/sample-maven-archetype/target
-
 # /java/server/
 /java/server/target
 /java/server/work
@@ -352,6 +349,12 @@ java/sample-maven-archetype/target
 /java/uber/create.sql
 /java/uber/drop.sql
 /java/uber/derby.log
+
+/java/sample-maven-archetype/target
+/java/sample-maven-archetype/*.iml
+
+/java/wso2-ext/target
+/java/wso2-ext/*.iml
 
 # /php/
 /php/target
