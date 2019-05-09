@@ -50,9 +50,16 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.wso2.carbon.base.ServerConfiguration;
+import org.wso2.carbon.utils.CarbonUtils;
+import org.mockito.Mock;
+
+import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -64,6 +71,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Base class for end-to-end tests.
  */
+@PrepareForTest({ServerConfiguration.class})
 public class EndToEndTest {
   private static final String[] EXPECTED_RESOURCES = {
     "fetchPersonTest.xml",
@@ -88,6 +96,9 @@ public class EndToEndTest {
   private CollectingAlertHandler alertHandler;
   private SecurityToken token;
   private String language;
+
+  @Mock
+  ServerConfiguration serverConfiguration;
 
   @Test
   public void checkResources() throws Exception {
@@ -366,6 +377,8 @@ public class EndToEndTest {
 
   @Before
   public void setUp() throws Exception {
+//    mockStatic(ServerConfiguration.class);
+//    when(CarbonUtils.getServerConfiguration()).thenReturn(serverConfiguration);
     webClient = new WebClient();
     // NicelyResynchronizingAjaxController changes XHR calls from asynchronous
     // to synchronous, saving the test from needing to wait or sleep for XHR

@@ -43,12 +43,14 @@ public class WhitelistImpl implements Whitelist {
 
     public WhitelistImpl() {
 
-        // Add carbon hostname followed by as the default whitelist URL.
-        ServerConfiguration serverConfig = CarbonUtils.getServerConfiguration();
-        String carbonHostname = serverConfig.getFirstProperty("HostName");
-        String url = "https://" + carbonHostname + "/portal";
-        defaultWhiteListedURIPattern = Pattern.compile(getURIRegex(url));
-        log.info("URL: " + url + " compiled as the default whitelisted backend URI.");
+        whiteListedURIPatternList.add(Pattern.compile(getURIRegex("http://localhost:9003")));
+
+//        // Add carbon hostname followed by as the default whitelist URL.
+//        ServerConfiguration serverConfig = CarbonUtils.getServerConfiguration();
+//        String carbonHostname = serverConfig.getFirstProperty("HostName");
+//        String url = "https://" + carbonHostname + "/portal";
+//        defaultWhiteListedURIPattern = Pattern.compile(getURIRegex(url));
+//        log.info("URL: " + url + " compiled as the default whitelisted backend URI.");
     }
 
     public boolean isWhitelisted(HttpRequest request) {
@@ -108,12 +110,13 @@ public class WhitelistImpl implements Whitelist {
 
         String regex;
         if (uri.matches("^.*:[0-9]{4}.*$")) {
-            regex = uri.replaceAll("/", "\\/");
+            regex = "^(" + uri.replaceAll("/", "\\/") + ").*$";
         } else {
             String[] uriComponents = uri.split("/");
             regex = "^(" + uriComponents[0] + "\\/\\/" + uriComponents[2] + "):*[0-9]{0,4}(\\/" +
                     uriComponents[3] + ").*$";
         }
+        log.info("===================" + regex);
         return regex;
     }
 }

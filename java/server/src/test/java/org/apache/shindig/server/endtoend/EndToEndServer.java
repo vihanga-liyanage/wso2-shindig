@@ -37,6 +37,7 @@ import org.apache.shindig.protocol.DataServiceServlet;
 import org.apache.shindig.protocol.JsonRpcServlet;
 import org.apache.shindig.social.core.config.SocialApiGuiceModule;
 import org.apache.shindig.social.sample.SampleModule;
+import org.apache.shindig.wso2.ext.OverridingModule;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.handler.ResourceHandler;
 import org.mortbay.jetty.servlet.Context;
@@ -136,6 +137,7 @@ public class EndToEndServer {
               OAuth2Module.class.getName(),
               OAuth2PersistenceModule.class.getName(),
               OAuth2MessageModule.class.getName(),
+              OverridingModule.class.getName(),
               OAuth2HandlerModule.class.getName()
              );
 
