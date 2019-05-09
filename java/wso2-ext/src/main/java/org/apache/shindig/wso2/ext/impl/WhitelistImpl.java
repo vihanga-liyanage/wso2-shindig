@@ -38,33 +38,39 @@ import java.util.regex.Pattern;
 public class WhitelistImpl implements Whitelist {
 
     private static final Logger log = Logger.getLogger(WhitelistImpl.class.getName());
-    private List<Pattern> whiteListedURIRegexList = new ArrayList<Pattern>();
+    private List<Pattern> whiteListedURIPatternList = new ArrayList<Pattern>();
+    private Pattern defaultWhiteListedURIPattern;
 
     public WhitelistImpl() {
 
-        // Add carbon hostname URI to the list. This will be removed if whitelist URLs are configured
-        // in shindig.properties file.
+        // Add carbon hostname followed by as the default whitelist URL.
         ServerConfiguration serverConfig = CarbonUtils.getServerConfiguration();
         String carbonHostname = serverConfig.getFirstProperty("HostName");
         String url = "https://" + carbonHostname + "/portal";
-        addURIRegexToWhiteList(url);
-        log.info("URL: " + url + " added to the whitelisted backend URI list.");
+        defaultWhiteListedURIPattern = Pattern.compile(getURIRegex(url));
+        log.info("URL: " + url + " compiled as the default whitelisted backend URI.");
     }
 
     public boolean isWhitelisted(HttpRequest request) {
 
-        if (whiteListedURIRegexList.isEmpty()) {
-            return true;
-        }
+        boolean isWhitelisted = false;
 
-        for (Pattern pattern : whiteListedURIRegexList) {
-            if (isMatch(request, pattern)) {
-                return true;
+        if (whiteListedURIPatternList.isEmpty()) {
+            isWhitelisted = isMatch(request, defaultWhiteListedURIPattern);
+        } else {
+            for (Pattern pattern : whiteListedURIPatternList) {
+                if (isMatch(request, pattern)) {
+                    isWhitelisted = true;
+                    break;
+                }
             }
         }
-        log.warning("Potential External Service Interaction (DNS) attack thwarted. Unauthorized URI: " +
-                request.getUri().toString() + " detected in shindig web app request parameters.");
-        return false;
+
+        if (!isWhitelisted) {
+            log.warning("Potential External Service Interaction (DNS) attack thwarted. Unauthorized URI: " +
+                    request.getUri().toString() + " detected in shindig web app request parameters.");
+        }
+        return isWhitelisted;
     }
 
     /**
@@ -84,11 +90,11 @@ public class WhitelistImpl implements Whitelist {
     public void setWhitelistedUrl(@Named("wso2.shindig.proxy.whitelist") String whitelistUrlList) {
 
         if (whitelistUrlList != null && !whitelistUrlList.isEmpty()) {
-            // Reset whiteListedURIRegexList to remove added URLs by default.
-            whiteListedURIRegexList = new ArrayList<Pattern>();
+            // Reset whiteListedURIPatternList to remove added URLs by default.
+            whiteListedURIPatternList = new ArrayList<Pattern>();
             String[] parts = whitelistUrlList.split(",");
-            for (String uri: parts) {
-                addURIRegexToWhiteList(uri);
+            for (String uri : parts) {
+                whiteListedURIPatternList.add(Pattern.compile(getURIRegex(uri)));
             }
         }
     }
@@ -98,7 +104,7 @@ public class WhitelistImpl implements Whitelist {
      *
      * @param uri URI to be whitelisted.
      */
-    private void addURIRegexToWhiteList(String uri) {
+    private String getURIRegex(String uri) {
 
         String regex;
         if (uri.matches("^.*:[0-9]{4}.*$")) {
@@ -108,6 +114,6 @@ public class WhitelistImpl implements Whitelist {
             regex = "^(" + uriComponents[0] + "\\/\\/" + uriComponents[2] + "):*[0-9]{0,4}(\\/" +
                     uriComponents[3] + ").*$";
         }
-        whiteListedURIRegexList.add(Pattern.compile(regex));
+        return regex;
     }
 }
