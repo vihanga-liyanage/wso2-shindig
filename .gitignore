@@ -350,6 +350,12 @@
 /java/uber/drop.sql
 /java/uber/derby.log
 
+/java/sample-maven-archetype/target
+/java/sample-maven-archetype/*.iml
+
+/java/wso2-ext/target
+/java/wso2-ext/*.iml
+
 # /php/
 /php/target
 /php/work
