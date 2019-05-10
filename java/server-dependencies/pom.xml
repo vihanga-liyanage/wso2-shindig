@@ -77,12 +77,6 @@
       <classifier>${shindig.jdk.classifier}</classifier>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.wso2.org.apache.shindig</groupId>
-      <artifactId>wso2-extensions</artifactId>
-      <classifier>${shindig.jdk.classifier}</classifier>
-      <version>${project.version}</version>
-    </dependency>
 
     <!-- external dependencies -->
     <dependency>
