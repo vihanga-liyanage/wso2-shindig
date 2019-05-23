@@ -111,9 +111,9 @@ public class WhitelistImpl implements Whitelist {
             regex = uri.replaceAll("/", "\\/");
         } else {
             String[] uriComponents = uri.split("/");
-            regex = "^(" + uriComponents[0] + "\\/\\/" + uriComponents[2] + "):*[0-9]{0,4}(\\/" +
-                    uriComponents[3] + ").*$";
+            regex = uriComponents[0] + "\\/\\/" + uriComponents[2] + "):*[0-9]{0,4}(\\/" +
+                    uriComponents[3];
         }
-        return regex;
+        return "^(" + regex + ").*$";
     }
 }
